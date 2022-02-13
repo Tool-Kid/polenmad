@@ -1,0 +1,28 @@
+{
+  "root": "apps/polenmad-e2e",
+  "sourceRoot": "apps/polenmad-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/polenmad-e2e/cypress.json",
+        "devServerTarget": "polenmad:serve:development"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "polenmad:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/polenmad-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["polenmad"]
+}
