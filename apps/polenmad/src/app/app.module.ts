@@ -19,13 +19,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { HeaderModule } from './components/header/header.module';
 import { TabsModule } from './components/tabs/tabs.module';
 import { TranslocoRootModule } from './modules/transloco/transloco.module';
+import { ReactiveFormsModule } from '@angular/forms';
+import { SettingsState } from './pages/settings/state/settings.state';
 
 const OWN_MODULES = [HeaderModule, TabsModule];
 const TAIGA_MODULES = [TuiRootModule, TuiNotificationsModule, TuiDialogModule];
 
 const NGXS_MODULES = [
   NgxsModule.forRoot([], { developmentMode: !environment.production }),
-  NgxsStoragePluginModule.forRoot({}),
+  NgxsStoragePluginModule.forRoot({ key: [SettingsState] }),
   NgxsReduxDevtoolsPluginModule.forRoot({ disabled: environment.production }),
 ];
 
@@ -35,6 +37,7 @@ const NGXS_MODULES = [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    ReactiveFormsModule,
     DataAccessModule.forRoot({
       strategy: environment.production ? 'http' : 'mock',
     }),

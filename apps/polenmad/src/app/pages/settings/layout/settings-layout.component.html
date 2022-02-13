@@ -1,1 +1,22 @@
-<p>settings-layout works!</p>
+<ng-container>
+  <form [formGroup]="settingsForm">
+    <div class="container mx-auto px-4" *transloco="let t">
+      <h1>{{ t('settings.POLLEN_TYPES__TITLE') }}</h1>
+      <ng-container formArrayName="pollenTypes">
+        <ng-container
+          *ngFor="let pollenTypeForm of pollenTypes.controls; let i = index"
+          [formGroupName]="i"
+        >
+          <tui-checkbox-labeled
+            size="l"
+            formControlName="active"
+            class="mt-5"
+            (click)="onPollenTypeChanges(pollenTypeForm.value.type)"
+          >
+            {{ t('pollen.' + pollenTypeForm.value.name) }}
+          </tui-checkbox-labeled>
+        </ng-container>
+      </ng-container>
+    </div>
+  </form>
+</ng-container>

@@ -29,7 +29,7 @@ export class SettingsState {
         patch({
           pollenTypes: updateItem<PollenTypeSettings>(
             (setting) => setting?.type === action.pollenType,
-            { type: action.pollenType, active: false }
+            { type: action.pollenType, active: !pollenType.active }
           ),
         })
       );
