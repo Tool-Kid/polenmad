@@ -26,7 +26,9 @@ const OWN_MODULES = [HeaderModule, TabsModule];
 const TAIGA_MODULES = [TuiRootModule, TuiNotificationsModule, TuiDialogModule];
 
 const NGXS_MODULES = [
-  NgxsModule.forRoot([], { developmentMode: !environment.production }),
+  NgxsModule.forRoot([SettingsState], {
+    developmentMode: !environment.production,
+  }),
   NgxsStoragePluginModule.forRoot({ key: [SettingsState] }),
   NgxsReduxDevtoolsPluginModule.forRoot({ disabled: environment.production }),
 ];

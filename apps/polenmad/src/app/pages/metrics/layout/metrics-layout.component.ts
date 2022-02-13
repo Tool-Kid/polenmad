@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
-import { PollenMetrics } from '@polenmad/data-access';
+import { MetricEntry } from '@polenmad/data-access';
 import { Observable } from 'rxjs';
 import { RetrieveMetrics } from '../state/metrics.actions';
 import { MetricsState } from '../state/metrics.state';
@@ -12,8 +12,8 @@ import { MetricsState } from '../state/metrics.state';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MetricsLayoutComponent implements OnInit {
-  @Select(MetricsState.metrics)
-  metrics$!: Observable<PollenMetrics>;
+  @Select(MetricsState.alergies)
+  alergies$!: Observable<MetricEntry[]>;
 
   constructor(private readonly store: Store) {}
 

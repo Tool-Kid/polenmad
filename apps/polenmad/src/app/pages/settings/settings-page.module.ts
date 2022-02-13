@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { SettingsPageRoutingModule } from './settings-page-routing.module';
 import { SettingsLayoutComponent } from './layout/settings-layout.component';
 import { NgxsModule } from '@ngxs/store';
-import { SettingsState } from './state/settings.state';
 import { TranslocoModule } from '@ngneat/transloco';
 import { TuiCheckboxLabeledModule } from '@taiga-ui/kit';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -17,7 +16,7 @@ const TAIGA_MODULES = [TuiCheckboxLabeledModule];
     CommonModule,
     ReactiveFormsModule,
     TranslocoModule,
-    NgxsModule.forFeature([SettingsState]),
+    NgxsModule.forFeature(),
     SettingsPageRoutingModule,
     ...TAIGA_MODULES,
   ],

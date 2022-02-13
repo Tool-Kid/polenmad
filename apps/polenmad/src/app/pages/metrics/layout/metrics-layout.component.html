@@ -1,9 +1,9 @@
-<ng-container *ngIf="metrics$ | async as metrics">
+<ng-container *ngIf="alergies$ | async as allergies">
   <div class="container mx-auto px-4" *transloco="let t; read: 'pollen'">
     <h1>{{ t('METRICS__TITLE') }}</h1>
     <div class="grid grid-cols-2 gap-4">
       <polenmad-metric-card
-        *ngFor="let entry of metrics.entries"
+        *ngFor="let entry of allergies"
         [entry]="entry"
       ></polenmad-metric-card>
     </div>
