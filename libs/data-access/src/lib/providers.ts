@@ -1,11 +1,30 @@
-import { Provider } from '@angular/core';
+import { ClassProvider, Provider, Type } from '@angular/core';
+import { ProviderStrategy } from '.';
 import { DataAccessModuleConfig } from '..';
-import { HttpMetricsService, InMemoryMetricsService } from './metrics';
+import {
+  HttpMetricsService,
+  InMemoryMetricsService,
+  MetricsService,
+} from './metrics';
 
-const HTTP_PROVIDERS = [HttpMetricsService];
+const INMEMORY_PROVIDERS: ClassProvider[] = [
+  {
+    provide: MetricsService,
+    useClass: InMemoryMetricsService,
+  },
+];
 
-const IN_MEMORY_PROVIDERS = [InMemoryMetricsService];
+const HTTP_PROVIDERS: ClassProvider[] = [
+  {
+    provide: MetricsService,
+    useClass: HttpMetricsService,
+  },
+];
+
+function getProvidersForStrategy(strategy: ProviderStrategy): ClassProvider[] {
+  return strategy === 'http' ? HTTP_PROVIDERS : INMEMORY_PROVIDERS;
+}
 
 export function getProviders(config: DataAccessModuleConfig): Provider[] {
-  return config.strategy === 'http' ? HTTP_PROVIDERS : IN_MEMORY_PROVIDERS;
+  return getProvidersForStrategy(config.strategy);
 }

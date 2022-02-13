@@ -1,8 +1,9 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { getProviders } from './providers';
 
+export type ProviderStrategy = 'http' | 'mock';
 export interface DataAccessModuleConfig {
-  strategy: 'http' | 'mock';
+  strategy: ProviderStrategy;
 }
 
 @NgModule()
