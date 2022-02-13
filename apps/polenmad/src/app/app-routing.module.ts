@@ -4,15 +4,27 @@ import { RouterModule, Routes } from '@angular/router';
 const ROUTES: Routes = [
   {
     path: '',
-    redirectTo: 'metrics',
-    pathMatch: 'full',
-  },
-  {
-    path: 'metrics',
-    loadChildren: () =>
-      import('./pages/metrics/metrics-page.module').then(
-        (m) => m.MetricsPageModule
-      ),
+    children: [
+      {
+        path: '',
+        redirectTo: 'metrics',
+        pathMatch: 'full',
+      },
+      {
+        path: 'metrics',
+        loadChildren: () =>
+          import('./pages/metrics/metrics-page.module').then(
+            (m) => m.MetricsPageModule
+          ),
+      },
+      {
+        path: 'settings',
+        loadChildren: () =>
+          import('./pages/settings/settings-page.module').then(
+            (m) => m.SettingsPageModule
+          ),
+      },
+    ],
   },
 ];
 
