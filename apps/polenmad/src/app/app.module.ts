@@ -9,6 +9,9 @@ import {
   TuiRootModule,
 } from '@taiga-ui/core';
 import { AppRoutingModule } from './app-routing.module';
+import { HeaderModule } from './components/header/header.module';
+
+const OWN_MODULES = [HeaderModule];
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,6 +22,7 @@ import { AppRoutingModule } from './app-routing.module';
     TuiNotificationsModule,
     TuiDialogModule,
     AppRoutingModule,
+    ...OWN_MODULES,
   ],
   providers: [],
   bootstrap: [AppComponent],
