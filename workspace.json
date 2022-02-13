@@ -1,6 +1,7 @@
 {
   "version": 2,
   "projects": {
+    "api": "apps/api",
     "data-access": "libs/data-access",
     "polenmad": "apps/polenmad",
     "polenmad-e2e": "apps/polenmad-e2e"
