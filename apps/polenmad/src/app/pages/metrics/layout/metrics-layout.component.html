@@ -1,7 +1,11 @@
-<polenmad-metric-card
-  [config]="{
-    name: 'Ciprés',
-    icon: 'assets/img/trees/tree-placeholder.png',
-    value: '216p/m'
-  }"
-></polenmad-metric-card>
+<ng-container *ngIf="metrics$ | async as metrics">
+  <div class="container mx-auto px-4" *transloco="let t; read: 'pollen'">
+    <h1>{{ t('METRICS__TITLE') }}</h1>
+    <div class="grid grid-cols-2 gap-4">
+      <polenmad-metric-card
+        *ngFor="let entry of metrics.entries"
+        [entry]="entry"
+      ></polenmad-metric-card>
+    </div>
+  </div>
+</ng-container>

@@ -1,5 +1,10 @@
-<tui-island size="l" textAlign="center" [hoverable]="true">
-  <h3 class="tui-island__title">{{ metric.name }}</h3>
+<tui-island
+  size="l"
+  textAlign="center"
+  [hoverable]="true"
+  *transloco="let t; read: 'pollen'"
+>
+  <h3 class="tui-island__title">{{ t(metric.name) }}</h3>
   <div class="tui-island__content">
     <figure class="tui-island__figure">
       <tui-avatar [avatarUrl]="metric.icon"></tui-avatar>

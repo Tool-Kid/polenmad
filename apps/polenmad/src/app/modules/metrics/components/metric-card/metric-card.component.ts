@@ -4,6 +4,8 @@ import {
   ChangeDetectionStrategy,
   Input,
 } from '@angular/core';
+import { MetricEntry } from '@polenmad/data-access';
+import { PollenCategoriesConfigMap } from '@polenmad/data-access';
 
 interface MetricConfig {
   icon: string;
@@ -19,7 +21,7 @@ interface MetricConfig {
 })
 export class MetricCardComponent implements OnInit {
   @Input()
-  config!: MetricConfig;
+  entry!: MetricEntry;
 
   metric!: MetricConfig;
 
@@ -30,6 +32,17 @@ export class MetricCardComponent implements OnInit {
   }
 
   setConfig() {
-    this.metric = this.config;
+    const { name, icon } = PollenCategoriesConfigMap.get(
+      this.entry.value.type
+    ) || {
+      icon: 'assets/img/trees/tree-placeholder.png',
+      name: 'UNKNOWN__NAME',
+      type: 'unknown',
+    };
+    this.metric = {
+      icon,
+      name,
+      value: `${this.entry.value.polllenGrains.count}${this.entry.value.polllenGrains.units}`,
+    };
   }
 }
