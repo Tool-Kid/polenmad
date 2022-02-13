@@ -10,8 +10,9 @@ import {
 } from '@taiga-ui/core';
 import { AppRoutingModule } from './app-routing.module';
 import { HeaderModule } from './components/header/header.module';
+import { TabsModule } from './components/tabs/tabs.module';
 
-const OWN_MODULES = [HeaderModule];
+const OWN_MODULES = [HeaderModule, TabsModule];
 
 @NgModule({
   declarations: [AppComponent],
