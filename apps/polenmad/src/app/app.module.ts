@@ -18,6 +18,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HeaderModule } from './components/header/header.module';
 import { TabsModule } from './components/tabs/tabs.module';
+import { TranslocoRootModule } from './modules/transloco/transloco.module';
 
 const OWN_MODULES = [HeaderModule, TabsModule];
 const TAIGA_MODULES = [TuiRootModule, TuiNotificationsModule, TuiDialogModule];
@@ -40,6 +41,7 @@ const NGXS_MODULES = [
     ...NGXS_MODULES,
     ...TAIGA_MODULES,
     ...OWN_MODULES,
+    TranslocoRootModule,
     AppRoutingModule,
   ],
   providers: [],

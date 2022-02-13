@@ -11,6 +11,7 @@ export enum PollenCategory {
   Popolus = 'popolus',
   Salix = 'salix',
   Ulmus = 'ulmus',
+  Unknown = 'unknown',
 }
 
 export type PollenCategoryType = `${PollenCategory}`;
