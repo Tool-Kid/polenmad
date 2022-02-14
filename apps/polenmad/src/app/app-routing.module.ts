@@ -24,6 +24,13 @@ const ROUTES: Routes = [
             (m) => m.SettingsPageModule
           ),
       },
+      {
+        path: 'about',
+        loadChildren: () =>
+          import('./pages/about/about-page.module').then(
+            (m) => m.AboutPageModule
+          ),
+      },
     ],
   },
 ];

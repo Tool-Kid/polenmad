@@ -34,6 +34,7 @@ export class TranslocoHttpLoader implements TranslocoLoader {
     { provide: TRANSLOCO_LOADER, useClass: TranslocoHttpLoader },
     { provide: TRANSLOCO_SCOPE, useValue: 'pollen', multi: true },
     { provide: TRANSLOCO_SCOPE, useValue: 'settings', multi: true },
+    { provide: TRANSLOCO_SCOPE, useValue: 'about', multi: true },
   ],
 })
 export class TranslocoRootModule {}
