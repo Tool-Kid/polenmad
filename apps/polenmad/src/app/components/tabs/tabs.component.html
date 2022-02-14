@@ -1,10 +1,14 @@
-<tui-tabs>
+<tui-tabs *transloco="let t">
   <button tuiTab routerLink="metrics" routerLinkActive="metrics" class="ml-5">
     <tui-svg src="tuiIconChartBar" class="tui-space_right-2"></tui-svg>
-    Metrics
+    {{ t('TAB_METRICS') }}
   </button>
   <button tuiTab routerLink="settings" routerLinkActive="settings">
     <tui-svg src="tuiIconSettings" class="tui-space_right-2"></tui-svg>
-    Settings
+    {{ t('TAB_SETTINGS') }}
+  </button>
+  <button tuiTab routerLink="about" routerLinkActive="about">
+    <tui-svg src="tuiIconInfo" class="tui-space_right-2"></tui-svg>
+    {{ t('TAB_ABOUT') }}
   </button>
 </tui-tabs>
