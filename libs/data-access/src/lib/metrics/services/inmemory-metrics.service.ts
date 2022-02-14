@@ -15,7 +15,7 @@ export class InMemoryMetricsService implements MetricsService {
         {
           lastUpdated: 1644765390076,
           value: {
-            type: 'total',
+            type: 'todos',
             polllenGrains: {
               count: 126,
               units: '',
@@ -25,7 +25,7 @@ export class InMemoryMetricsService implements MetricsService {
         {
           lastUpdated: 1644765390076,
           value: {
-            type: 'alnus',
+            type: 'alnu',
             polllenGrains: {
               count: 126,
               units: '',
@@ -45,7 +45,7 @@ export class InMemoryMetricsService implements MetricsService {
         {
           lastUpdated: 1644765390076,
           value: {
-            type: 'betula',
+            type: 'betu',
             polllenGrains: {
               count: 126,
               units: '',
@@ -55,7 +55,7 @@ export class InMemoryMetricsService implements MetricsService {
         {
           lastUpdated: 1644765390076,
           value: {
-            type: 'corylus',
+            type: 'cory',
             polllenGrains: {
               count: 126,
               units: '',
@@ -65,7 +65,7 @@ export class InMemoryMetricsService implements MetricsService {
         {
           lastUpdated: 1644765390076,
           value: {
-            type: 'cupresaceae_taxaceae',
+            type: 'cupr',
             polllenGrains: {
               count: 126,
               units: '',
@@ -75,7 +75,7 @@ export class InMemoryMetricsService implements MetricsService {
         {
           lastUpdated: 1644765390076,
           value: {
-            type: 'fraxinus',
+            type: 'frax',
             polllenGrains: {
               count: 126,
               units: '',
@@ -85,7 +85,7 @@ export class InMemoryMetricsService implements MetricsService {
         {
           lastUpdated: 1644765390076,
           value: {
-            type: 'platanus',
+            type: 'plat',
             polllenGrains: {
               count: 126,
               units: '',
@@ -95,7 +95,7 @@ export class InMemoryMetricsService implements MetricsService {
         {
           lastUpdated: 1644765390076,
           value: {
-            type: 'poaceae',
+            type: 'poac',
             polllenGrains: {
               count: 126,
               units: '',
@@ -105,7 +105,7 @@ export class InMemoryMetricsService implements MetricsService {
         {
           lastUpdated: 1644765390076,
           value: {
-            type: 'popolus',
+            type: 'popo',
             polllenGrains: {
               count: 126,
               units: '',
@@ -115,7 +115,7 @@ export class InMemoryMetricsService implements MetricsService {
         {
           lastUpdated: 1644765390076,
           value: {
-            type: 'salix',
+            type: 'sali',
             polllenGrains: {
               count: 126,
               units: '',
@@ -125,7 +125,7 @@ export class InMemoryMetricsService implements MetricsService {
         {
           lastUpdated: 1644765390076,
           value: {
-            type: 'ulmus',
+            type: 'ulmu',
             polllenGrains: {
               count: 126,
               units: '',
