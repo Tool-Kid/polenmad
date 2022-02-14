@@ -2,21 +2,23 @@
   <form [formGroup]="settingsForm">
     <div class="container mx-auto px-4" *transloco="let t">
       <h1>{{ t('settings.POLLEN_TYPES__TITLE') }}</h1>
-      <ng-container formArrayName="pollenTypes">
+      <div formArrayName="pollenTypes" class="grid grid-cols-2">
         <ng-container
           *ngFor="let pollenTypeForm of pollenTypes.controls; let i = index"
           [formGroupName]="i"
         >
-          <tui-checkbox-labeled
-            size="l"
-            formControlName="active"
-            class="mt-5"
-            (click)="onPollenTypeChanges(pollenTypeForm.value.type)"
-          >
-            {{ t('pollen.' + pollenTypeForm.value.name) }}
-          </tui-checkbox-labeled>
+          <div>
+            <tui-checkbox-labeled
+              size="l"
+              formControlName="active"
+              class="mt-5"
+              (click)="onPollenTypeChanges(pollenTypeForm.value.type)"
+            >
+              {{ t('pollen.' + pollenTypeForm.value.name) }}
+            </tui-checkbox-labeled>
+          </div>
         </ng-container>
-      </ng-container>
+      </div>
     </div>
   </form>
 </ng-container>
