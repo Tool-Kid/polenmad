@@ -21,8 +21,9 @@ import { TabsModule } from './components/tabs/tabs.module';
 import { TranslocoRootModule } from './modules/transloco/transloco.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SettingsState } from './pages/settings/state/settings.state';
+import { FooterModule } from './components/footer/footer.module';
 
-const OWN_MODULES = [HeaderModule, TabsModule];
+const OWN_MODULES = [HeaderModule, TabsModule, FooterModule];
 const TAIGA_MODULES = [TuiRootModule, TuiNotificationsModule, TuiDialogModule];
 
 const NGXS_MODULES = [
