@@ -1,12 +1,12 @@
 import { Controller, Get } from '@nestjs/common';
+import { PollenDataProcessorService } from '../../pollen-collector/pollen-data-processor.service';
 import { MetricsRepository } from '../metrics.repository';
-import { PollenCollector } from '../tasks/pollen-collector-data';
 
 @Controller('metrics')
 export class GetMetricsController {
   constructor(
     private readonly repository: MetricsRepository,
-    private collector: PollenCollector
+    private collector: PollenDataProcessorService
   ) {}
 
   @Get()

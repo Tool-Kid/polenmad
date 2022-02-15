@@ -1,17 +1,13 @@
 import { Module } from '@nestjs/common';
-import { HttpModule } from '@nestjs/axios';
 
 import { GetMetricsController } from './get/get-metrics.controller';
 import { MetricsRepository } from './metrics.repository';
-import { PollenCollector } from './tasks/pollen-collector-data';
 import { FooMetricsRepository } from './foo-metrics.repository';
+import { PollenCollectorModule } from '../pollen-collector/pollen-collector.module';
 
 @Module({
-  imports: [HttpModule],
+  imports: [PollenCollectorModule],
   controllers: [GetMetricsController],
-  providers: [
-    { provide: MetricsRepository, useClass: FooMetricsRepository },
-    PollenCollector,
-  ],
+  providers: [{ provide: MetricsRepository, useClass: FooMetricsRepository }],
 })
 export class MetricsModule {}
