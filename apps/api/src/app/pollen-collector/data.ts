@@ -91,47 +91,47 @@ export const CatcherRegionIndexRegistry: {
 }[] = [
   {
     type: 'ah',
-    index: 1,
+    index: 0,
   },
   {
     type: 'alco',
-    index: 2,
+    index: 1,
   },
   {
     type: 'aran',
-    index: 3,
+    index: 2,
   },
   {
     type: 'covi',
-    index: 4,
+    index: 3,
   },
   {
     type: 'cosl',
-    index: 5,
+    index: 4,
   },
   {
     type: 'geta',
-    index: 6,
+    index: 5,
   },
   {
     type: 'roza',
-    index: 7,
+    index: 6,
   },
   {
     type: 'lega',
-    index: 8,
+    index: 7,
   },
   {
     type: 'arga',
-    index: 9,
+    index: 8,
   },
   {
     type: 'sala',
-    index: 10,
+    index: 9,
   },
   {
     type: 'ciuu',
-    index: 11,
+    index: 10,
   },
 ];
 

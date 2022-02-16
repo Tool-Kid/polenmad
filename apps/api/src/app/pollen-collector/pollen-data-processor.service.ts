@@ -1,72 +1,38 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { PollenCollectorService } from './pollen-collector.service';
-import { existsSync, mkdirSync, rmSync, writeFileSync } from 'fs';
 import {
   getCatcherRegionForIndex,
   PollenCatcherEntry,
-  PollenCategoryIndexRegistry,
   PollenCategoryType,
-  PollenCollection,
 } from './data';
-import { differenceInSeconds } from 'date-fns';
 
 @Injectable()
 export class PollenDataProcessorService {
   private readonly logger = new Logger(PollenDataProcessorService.name);
-  private readonly tmpPath = './tmp';
-  private readonly tmpReportsPath = './tmp/reports';
-  private readonly tmpCollectorPath = './tmp/collector';
-  private pollenCollection: PollenCollection;
 
-  constructor(private readonly pollenCollector: PollenCollectorService) {}
+  public async processPollenData(category: PollenCategoryType, data: any[]) {
+    const entries: PollenCatcherEntry[] = [];
 
-  async collect() {
-    const startAt = Date.now();
-    this.pollenCollection = { entries: [] };
-    if (!existsSync(this.tmpCollectorPath)) {
-      mkdirSync(this.tmpCollectorPath, { recursive: true });
-    }
-    for (const category of PollenCategoryIndexRegistry) {
-      await this.collectPollenCategory(category.type);
-      this.logger.log(
-        `✅ Processing for <${category.type}> pollen type completed`
+    data
+      .filter((value, index) => index !== 0)
+      .filter((value) => value[0])
+      .map((entry: any[]) =>
+        entry
+          .filter((value, index) => index !== 0)
+          .map((entry, index) => ({
+            date: entry[0],
+            value: entry[index],
+            pollen: category,
+            catcher: getCatcherRegionForIndex(index),
+          }))
       );
-    }
-    this.logger.log(
-      `✅ Processor completed in ${differenceInSeconds(
-        Date.now(),
-        startAt
-      )} seconds with new ${this.pollenCollection.entries.length} entries found`
-    );
-    const storeFilePath = `${this.tmpReportsPath}/pollen-report-${startAt}.json`;
-    if (!existsSync(this.tmpReportsPath)) {
-      mkdirSync(this.tmpReportsPath, { recursive: true });
-    }
-    this.mapReport();
-    writeFileSync(storeFilePath, JSON.stringify(this.pollenCollection));
-    this.logger.log(`✅ Report stored at ${storeFilePath}`);
-    rmSync(this.tmpCollectorPath, { recursive: true, force: true });
+
+    const mappedEntries = this.mapReport(entries);
+    this.logger.log(`✅ Processing for <${category}> pollen type completed`);
+    return mappedEntries;
   }
 
-  private async collectPollenCategory(category: PollenCategoryType) {
-    const data = await this.pollenCollector.getPollenDataForPollenCategory(
-      category
-    );
-    for (let i = 1; i < data.length; i++) {
-      const entry = data[i];
-      for (let j = 1; j < entry.length; j++) {
-        this.pollenCollection.entries.push({
-          date: entry[0],
-          value: entry[j],
-          pollen: category,
-          catcher: getCatcherRegionForIndex(j),
-        });
-      }
-    }
-  }
-
-  private mapReport() {
-    this.pollenCollection.entries = this.pollenCollection.entries
+  private mapReport(entries: PollenCatcherEntry[]) {
+    return entries
       .map((entry) => {
         const [day, month, year] = entry.date.split('/');
         return {
