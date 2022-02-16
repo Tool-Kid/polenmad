@@ -8,7 +8,7 @@ export enum PollenCategory {
   Fraxinus = 'frax',
   Platanus = 'plat',
   Poaceae = 'poac',
-  Popolus = 'popo',
+  Popolus = 'popu',
   Salix = 'sali',
   Ulmus = 'ulmu',
   Unknown = 'unknown',
