@@ -1,49 +1,48 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 
-export enum PollenCatcherRegion {
-  AlcalaDeHenares = 'ah',
-  Alcobendas = 'alco',
-  Aranjuez = 'aran',
-  Arganzuela = 'arga',
-  BarrioSalamanca = 'sala',
-  CiudadUniversitaria = 'ciuu',
-  ColladoVillalba = 'covi',
-  Coslada = 'cosl',
-  Getafe = 'geta',
-  LasRozas = 'roza',
-  Leganes = 'lega',
-  Total = 'todos',
-}
-export type PollenCatcherRegionType = `${PollenCatcherRegion}`;
-
-const PollenCatcherRegionCoordinatesMap = new Map<
-  PollenCatcherRegion,
-  { x: string; y: string }
->([
-  [PollenCatcherRegion.AlcalaDeHenares, { x: '356', y: '264' }],
-  [PollenCatcherRegion.Alcobendas, { x: '284', y: '242' }],
-  [PollenCatcherRegion.Aranjuez, { x: '289', y: '439' }],
-  [PollenCatcherRegion.Arganzuela, { x: '261', y: '298' }],
-  [PollenCatcherRegion.BarrioSalamanca, { x: '266', y: '281' }],
-  [PollenCatcherRegion.CiudadUniversitaria, { x: '249', y: '286' }],
-  [PollenCatcherRegion.ColladoVillalba, { x: '147', y: '206' }],
-  [PollenCatcherRegion.Coslada, { x: '299', y: '286' }],
-  [PollenCatcherRegion.Getafe, { x: '250', y: '331' }],
-  [PollenCatcherRegion.LasRozas, { x: '201', y: '247' }],
-  [PollenCatcherRegion.Leganes, { x: '240', y: '324' }],
-]);
+import { createWriteStream } from 'fs';
+import { PythonShell } from 'python-shell';
+import { PollenCategoryType } from './data';
+import { getPythonFilePath } from '../utils';
 
 @Injectable()
 export class PollenCollectorService {
+  private readonly logger = new Logger(PollenCollectorService.name);
   private readonly baseUrl =
-    'https://gestiona3.madrid.org/geoserver3/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&LAYERS=SPOL_V_CAPTADORES_GIS&QUERY_LAYERS=SPOL_V_CAPTADORES_GIS&STYLES=&BBOX=365560.97254%2C4415910.465472%2C495339.02746%2C4558089.534528&FEATURE_COUNT=50&HEIGHT=493&WIDTH=450&FORMAT=image%2Fpng&INFO_FORMAT=text%2Fhtml&SRS=EPSG%3A23030&X=${X}&Y=${Y}';
+    'https://www.comunidad.madrid/sites/default/files/doc/sanidad/pole/dia/$.pdf';
+  private readonly tmpPath = './tmp/collector';
 
   constructor(private readonly http: HttpService) {}
 
-  getPollenDataForCatcherRegion(catcher: PollenCatcherRegion) {
-    const { x, y } = PollenCatcherRegionCoordinatesMap.get(catcher);
-    const url = this.baseUrl.replace('${X}', x).replace('${Y}', y);
-    return this.http.get(url);
+  async getPollenDataForPollenCategory(
+    category: PollenCategoryType
+  ): Promise<any[]> {
+    const fileURL = this.baseUrl.replace('$', category);
+    const pdfResponse = await this.http.axiosRef({
+      url: fileURL,
+      method: 'GET',
+      responseType: 'stream',
+    });
+
+    const writer = createWriteStream(`./${this.tmpPath}/${category}.pdf`);
+    await pdfResponse.data.pipe(writer);
+    this.logger.log(`✅ File ${fileURL} downloaded successfully`);
+
+    return new Promise((resolve, reject) => {
+      PythonShell.run(
+        getPythonFilePath('pollen-collector/pollen_pdf_processor.py'),
+        { pythonPath: 'python3', args: [category] },
+        (err, result) => {
+          if (err) {
+            reject(err);
+          }
+          this.logger.log(
+            `✅ Data extraction from file ${fileURL} completed succesfully`
+          );
+          resolve(JSON.parse(result[0]));
+        }
+      );
+    });
   }
 }

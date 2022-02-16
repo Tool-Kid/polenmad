@@ -1,130 +1,60 @@
-import { Injectable } from '@nestjs/common';
-import { firstValueFrom, of } from 'rxjs';
-import * as cheerio from 'cheerio';
+import { Injectable, Logger } from '@nestjs/common';
 import { PollenCollectorService } from './pollen-collector.service';
-import { writeFileSync } from 'fs';
-
-export enum PollenCategory {
-  Alnus = 'alnu',
-  Acer = 'acer',
-  Betula = 'betu',
-  Corylus = 'cory',
-  CupresaceaeTaxaceae = 'cupr',
-  Fraxinus = 'frax',
-  Platanus = 'plat',
-  Poaceae = 'poac',
-  Populus = 'popu',
-  Salix = 'sali',
-  Ulmus = 'ulmu',
-}
-
-export enum PollenCatcherRegion {
-  AlcalaDeHenares = 'ah',
-  Alcobendas = 'alco',
-  Aranjuez = 'aran',
-  Coslada = 'cosl',
-  Getafe = 'geta',
-  Leganes = 'lega',
-  ColladoVillalba = 'covi',
-  BarrioSalamanca = 'sala',
-  Arganzuela = 'arga',
-  CiudadUniversitaria = 'ciuu',
-  LasRozas = 'roza',
-}
-export type PollenCatcherRegionType = `${PollenCatcherRegion}`;
-
-export enum PollenCatcherModule {
-  Alcobendas,
-  Coslada,
-  Getafe,
-  LasRozas,
-  BarrioSalamanca,
-  CiudadUniversitaria,
-}
-
-export interface PollenCollection {
-  entries: PollenCatcherEntry[];
-}
-
-interface PollenCatcherEntry {
-  date: string;
-  catcher: PollenCatcherRegion;
-  pollen: PollenCategory;
-  value: number;
-}
-
-export const PollenCategoryNamesMap = new Map<string, PollenCategory>([
-  ['Artemisia', PollenCategory.Acer],
-  ['Cupresáceas/Taxáceas', PollenCategory.CupresaceaeTaxaceae],
-  ['Quenopodiáceas/Amarantáceas', PollenCategory.Acer],
-  ['Fresno', PollenCategory.Fraxinus],
-  ['Aligustre', PollenCategory.Acer],
-  ['Olivo', PollenCategory.],
-  ['Aliso', PollenCategory.Alnus],
-  ['Plantago', PollenCategory.Acer],
-  ['Plátano de paseo', PollenCategory.Platanus],
-  ['Gramíneas', PollenCategory.Poaceae],
-  ['Urticaceae (Ortigas)', PollenCategory.Acer],
-])
+import { existsSync, mkdirSync, rmSync, writeFileSync } from 'fs';
+import {
+  getCatcherRegionForIndex,
+  PollenCategoryIndexRegistry,
+  PollenCategoryType,
+  PollenCollection,
+} from './data';
+import { differenceInSeconds } from 'date-fns';
 
 @Injectable()
 export class PollenDataProcessorService {
-  private readonly baseUrl =
-    'https://www.comunidad.madrid/sites/default/files/doc/sanidad/pole/dia/$.pdf';
-  private readonly tmpPath = './tmp-collector';
+  private readonly logger = new Logger(PollenDataProcessorService.name);
+  private readonly tmpPath = './tmp/collector';
   private pollenCollection: PollenCollection;
-  foo = new Set();
 
   constructor(private readonly pollenCollector: PollenCollectorService) {}
 
   async collect() {
+    const startAt = Date.now();
     this.pollenCollection = { entries: [] };
-    const keys: string[] = Object.keys(PollenCatcherRegion);
-    const values: PollenCatcherRegion[] = keys.map(
-      (k) => PollenCatcherRegion[k] as PollenCatcherRegion
-    );
-
-    for (const catcher of values) {
-      await this.collectPollenCatcherRegion(catcher);
+    if (!existsSync(this.tmpPath)) {
+      mkdirSync(this.tmpPath, { recursive: true });
     }
-    await this.collectPollenCatcherRegion(
-      PollenCatcherRegion.CiudadUniversitaria
+    for (const category of PollenCategoryIndexRegistry) {
+      await this.collectPollenCategory(category.type);
+      this.logger.log(
+        `✅ Processing for <${category.type}> pollen type completed`
+      );
+    }
+    this.logger.log(
+      `✅ Processor completed in ${differenceInSeconds(
+        Date.now(),
+        startAt
+      )} seconds with new ${this.pollenCollection.entries.length} entries found`
     );
-    console.log(this.foo);
-    writeFileSync(`./report.json`, JSON.stringify(this.pollenCollection));
-    writeFileSync(`./foo.json`, JSON.stringify(this.foo.keys()));
+    const storeFilePath = `${this.tmpPath}/pollen-report-${startAt}.json`;
+    writeFileSync(storeFilePath, JSON.stringify(this.pollenCollection));
+    this.logger.log(`✅ Report stored at ${storeFilePath}`);
+    rmSync(this.tmpPath, { recursive: true, force: true });
   }
 
-  private async collectPollenCatcherRegion(catcher: PollenCatcherRegion) {
-    const report = await firstValueFrom(
-      this.pollenCollector.getPollenDataForCatcherRegion(catcher)
+  private async collectPollenCategory(category: PollenCategoryType) {
+    const data = await this.pollenCollector.getPollenDataForPollenCategory(
+      category
     );
-    const html = cheerio.load(report.data);
-    const date = html('body > div > div > div:nth-child(3) > label.valor')
-      .text()
-      .trim();
-
-    const categories = Object.values(PollenCategory);
-    let categoryIndex = 0;
-    for (const i of [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]) {
-      this.foo.add(
-        html(
-          `body > div > div > div:nth-child(${i}) > div:nth-child(1) > label`
-        )
-          .text()
-          .trim()
-      );
-      this.pollenCollection.entries.push({
-        date,
-        catcher,
-        pollen: categories[categoryIndex],
-        value: +html(
-          `body > div > div > div:nth-child(${i}) > div:nth-child(2) > label`
-        )
-          .text()
-          .trim(),
-      });
-      categoryIndex++;
+    for (let i = 1; i < data.length; i++) {
+      const entry = data[i];
+      for (let j = 1; j < entry.length; j++) {
+        this.pollenCollection.entries.push({
+          date: entry[0],
+          value: entry[j],
+          pollen: category,
+          catcher: getCatcherRegionForIndex(j),
+        });
+      }
     }
   }
 }
