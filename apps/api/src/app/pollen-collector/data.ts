@@ -1,4 +1,5 @@
 export enum PollenCategory {
+  PollenTotal = 'todos',
   Alnus = 'alnu',
   Acer = 'acer',
   Betula = 'betu',
@@ -32,72 +33,57 @@ export interface PollenCollection {
   entries: PollenCatcherEntry[];
 }
 
+export type PollenGranisCountValue = number | 'ND';
 export interface PollenCatcherEntry {
   date: string;
   catcher: PollenCatcherRegionType;
   pollen: PollenCategoryType;
-  value: number;
+  value: PollenGranisCountValue;
 }
 
 export const PollenCategoryIndexRegistry: {
   type: PollenCategoryType;
-  index: number;
 }[] = [
   {
+    type: 'todos',
+  },
+  {
     type: 'acer',
-    index: 0,
   },
   {
     type: 'alnu',
-    index: 0,
   },
   {
     type: 'betu',
-    index: 0,
   },
   {
     type: 'cory',
-    index: 0,
   },
   {
     type: 'cory',
-    index: 0,
   },
   {
     type: 'cupr',
-    index: 0,
   },
   {
     type: 'frax',
-    index: 0,
   },
   {
     type: 'plat',
-    index: 0,
   },
   {
     type: 'poac',
-    index: 0,
   },
   {
     type: 'popu',
-    index: 0,
   },
   {
     type: 'sali',
-    index: 0,
   },
   {
     type: 'ulmu',
-    index: 0,
   },
 ];
-
-export function getPollenCategoryForIndex(index: number) {
-  return PollenCategoryIndexRegistry.find(
-    (registry) => registry.index === index
-  ).type;
-}
 
 export const CatcherRegionIndexRegistry: {
   type: PollenCatcherRegionType;
