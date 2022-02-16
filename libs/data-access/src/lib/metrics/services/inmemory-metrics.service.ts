@@ -105,7 +105,7 @@ export class InMemoryMetricsService implements MetricsService {
         {
           lastUpdated: 1644765390076,
           value: {
-            type: 'popo',
+            type: 'popu',
             polllenGrains: {
               count: 126,
               units: '',

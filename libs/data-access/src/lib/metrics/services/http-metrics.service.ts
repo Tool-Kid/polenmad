@@ -12,6 +12,6 @@ export class HttpMetricsService implements MetricsService {
   constructor(private readonly http: HttpClient) {}
 
   getMetrics(): Observable<PollenMetrics> {
-    return this.http.get<PollenMetrics>(``);
+    return this.http.get<PollenMetrics>(`/api/metrics`);
   }
 }

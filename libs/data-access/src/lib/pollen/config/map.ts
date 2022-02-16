@@ -27,7 +27,7 @@ export const PollenCategoriesConfigMap = new Map<
   ['frax', { type: 'frax', name: 'FRAXINUS__NAME', icon: icon('frax') }],
   ['plat', { type: 'plat', name: 'PLATANUS__NAME', icon: icon('plat') }],
   ['poac', { type: 'poac', name: 'POACEAE__NAME', icon: icon('poac') }],
-  ['popo', { type: 'popo', name: 'POPOLUS__NAME', icon: icon('popo') }],
+  ['popu', { type: 'popu', name: 'POPOLUS__NAME', icon: icon('popu') }],
   ['sali', { type: 'sali', name: 'SALIX__NAME', icon: icon('sali') }],
   ['ulmu', { type: 'ulmu', name: 'ULMUS__NAME', icon: icon('ulmu') }],
 ]);
