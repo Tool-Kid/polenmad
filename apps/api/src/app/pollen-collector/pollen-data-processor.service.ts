@@ -3,6 +3,7 @@ import { PollenCollectorService } from './pollen-collector.service';
 import { existsSync, mkdirSync, rmSync, writeFileSync } from 'fs';
 import {
   getCatcherRegionForIndex,
+  PollenCatcherEntry,
   PollenCategoryIndexRegistry,
   PollenCategoryType,
   PollenCollection,
@@ -12,7 +13,9 @@ import { differenceInSeconds } from 'date-fns';
 @Injectable()
 export class PollenDataProcessorService {
   private readonly logger = new Logger(PollenDataProcessorService.name);
-  private readonly tmpPath = './tmp/collector';
+  private readonly tmpPath = './tmp';
+  private readonly tmpReportsPath = './tmp/reports';
+  private readonly tmpCollectorPath = './tmp/collector';
   private pollenCollection: PollenCollection;
 
   constructor(private readonly pollenCollector: PollenCollectorService) {}
@@ -20,8 +23,8 @@ export class PollenDataProcessorService {
   async collect() {
     const startAt = Date.now();
     this.pollenCollection = { entries: [] };
-    if (!existsSync(this.tmpPath)) {
-      mkdirSync(this.tmpPath, { recursive: true });
+    if (!existsSync(this.tmpCollectorPath)) {
+      mkdirSync(this.tmpCollectorPath, { recursive: true });
     }
     for (const category of PollenCategoryIndexRegistry) {
       await this.collectPollenCategory(category.type);
@@ -35,10 +38,14 @@ export class PollenDataProcessorService {
         startAt
       )} seconds with new ${this.pollenCollection.entries.length} entries found`
     );
-    const storeFilePath = `${this.tmpPath}/pollen-report-${startAt}.json`;
+    const storeFilePath = `${this.tmpReportsPath}/pollen-report-${startAt}.json`;
+    if (!existsSync(this.tmpReportsPath)) {
+      mkdirSync(this.tmpReportsPath, { recursive: true });
+    }
+    this.mapReport();
     writeFileSync(storeFilePath, JSON.stringify(this.pollenCollection));
     this.logger.log(`✅ Report stored at ${storeFilePath}`);
-    rmSync(this.tmpPath, { recursive: true, force: true });
+    rmSync(this.tmpCollectorPath, { recursive: true, force: true });
   }
 
   private async collectPollenCategory(category: PollenCategoryType) {
@@ -56,5 +63,22 @@ export class PollenDataProcessorService {
         });
       }
     }
+  }
+
+  private mapReport() {
+    this.pollenCollection.entries = this.pollenCollection.entries
+      .map((entry) => {
+        const [day, month, year] = entry.date.split('/');
+        return {
+          ...entry,
+          value: isNaN(Number(entry.value)) ? 'ND' : +entry.value,
+          date: new Date(
+            Date.UTC(+year + 2000, +month - 1, +day)
+          ).toUTCString(),
+        } as PollenCatcherEntry;
+      })
+      .sort((a, b) => {
+        return new Date(b.date) < new Date(a.date) ? -1 : 1;
+      });
   }
 }
