@@ -1,8 +1,4 @@
-import { PollenMetricsSchema } from './metrics.schema';
-
 export abstract class MetricsRepository {
-  abstract getMetrics(): Promise<PollenMetricsSchema[]>;
-  abstract updateMetrics(
-    metrics: PollenMetricsSchema
-  ): Promise<PollenMetricsSchema>;
+  abstract getMetrics(): Promise<any[]>;
+  abstract updateMetrics(metrics: any): Promise<any>;
 }

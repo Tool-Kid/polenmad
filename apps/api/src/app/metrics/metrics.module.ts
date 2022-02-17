@@ -4,7 +4,6 @@ import { GetMetricsController } from './get/get-metrics.controller';
 import { MetricsRepository } from './metrics.repository';
 import { PollenCollectorModule } from '../pollen-collector/pollen-collector.module';
 import { OnPollenCollectorCompleted } from './on-pollen-collector-completed';
-import { DynamoDBMetricsRepository } from './dynamodb-metrics.repository';
 
 const EVENT_HANDLERS = [OnPollenCollectorCompleted];
 
@@ -12,7 +11,7 @@ const EVENT_HANDLERS = [OnPollenCollectorCompleted];
   imports: [PollenCollectorModule],
   controllers: [GetMetricsController],
   providers: [
-    { provide: MetricsRepository, useClass: DynamoDBMetricsRepository },
+    { provide: MetricsRepository, useClass: MetricsRepository as any },
     ...EVENT_HANDLERS,
   ],
 })
