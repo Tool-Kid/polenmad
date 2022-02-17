@@ -1,6 +1,8 @@
 import { Injectable, Logger } from '@nestjs/common';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 import { differenceInSeconds } from 'date-fns';
 import { existsSync, mkdirSync, rmSync, writeFileSync } from 'fs';
+import { pollenCollectedEvent } from '../shared';
 import { PollenCategoryIndexRegistry, PollenCollection } from './data';
 import { PollenCollectorService } from './pollen-collector.service';
 import { PollenDataProcessorService } from './pollen-data-processor.service';
@@ -14,7 +16,8 @@ export class CollectPollenUseCase {
 
   constructor(
     private readonly collector: PollenCollectorService,
-    private readonly processor: PollenDataProcessorService
+    private readonly processor: PollenDataProcessorService,
+    private readonly emitter: EventEmitter2
   ) {}
 
   public async exec() {
@@ -50,5 +53,8 @@ export class CollectPollenUseCase {
 
     rmSync(this.tmpCollectorPath, { recursive: true, force: true });
     this.logger.log(`✅ tmp directory deleted successfully`);
+
+    const { type, data } = pollenCollectedEvent(pollenCollection);
+    this.emitter.emit(type, data);
   }
 }
