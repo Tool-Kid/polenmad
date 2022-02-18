@@ -1,0 +1,22 @@
+org: rjlopez
+app: polenmad
+service: polenmad
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: eu-west-3
+
+plugins:
+  - serverless-offline
+  - serverless-python-requirements
+functions:
+  main:
+    handler: main.handler
+    events:
+      - http:
+          method: ANY
+          path: /
+      - http:
+          method: ANY
+          path: '{proxy+}'

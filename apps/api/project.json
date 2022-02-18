@@ -10,8 +10,10 @@
         "outputPath": "dist/apps/api",
         "main": "apps/api/src/main.ts",
         "tsConfig": "apps/api/tsconfig.app.json",
+        "generatePackageJson": true,
         "assets": [
           "apps/api/src/assets",
+          "apps/api/src/serverless.yml",
           {
             "glob": "**/*.py",
             "input": "apps/api/src/app/",
