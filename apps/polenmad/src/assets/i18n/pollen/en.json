@@ -12,5 +12,10 @@
   "POACEAE__NAME": "Poaceae",
   "POPOLUS__NAME": "Popolus",
   "SALIX__NAME": "Salix",
-  "ULMUS__NAME": "Ulmus"
+  "ULMUS__NAME": "Ulmus",
+  "POLLEN_LEVEL__VERY_HIGH": "Very high",
+  "POLLEN_LEVEL__HIGH": "High",
+  "POLLEN_LEVEL__MEDIUM": "Medium",
+  "POLLEN_LEVEL__LOW": "Low",
+  "POLLEN_LEVEL__UNESTIMATED": "Unestimated"
 }

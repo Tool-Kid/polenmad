@@ -12,5 +12,10 @@
   "POACEAE__NAME": "Gramíneas",
   "POPOLUS__NAME": "Álamos o Chopos",
   "SALIX__NAME": "Sauces",
-  "ULMUS__NAME": "Olmos"
+  "ULMUS__NAME": "Olmos",
+  "POLLEN_LEVEL__VERY_HIGH": "Muy alto",
+  "POLLEN_LEVEL__HIGH": "Alto",
+  "POLLEN_LEVEL__MEDIUM": "Medio",
+  "POLLEN_LEVEL__LOW": "Bajo",
+  "POLLEN_LEVEL__UNESTIMATED": "No estimado"
 }
