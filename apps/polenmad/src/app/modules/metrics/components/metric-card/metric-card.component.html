@@ -10,7 +10,25 @@
       <tui-avatar [avatarUrl]="metric.icon"></tui-avatar>
     </figure>
     <div>
-      <p class="tui-island__title">{{ metric.value }}</p>
+      <p class="tui-island__title">{{ metric.value.units }}</p>
+    </div>
+    <div>
+      <p
+        class="tui-island__title"
+        [ngClass]="{
+          'text-red-500': metric.value.level === 'very_high',
+          'text-orange-500': metric.value.level === 'high',
+          'text-yellow-500': metric.value.level === 'medium',
+          'text-green-500': metric.value.level === 'low'
+        }"
+      >
+        {{ metric.value.level | pollenLevel }}
+        <tui-tooltip
+          [content]="metric.value.count + ' gp/m³'"
+          direction="right"
+          size="s"
+        ></tui-tooltip>
+      </p>
     </div>
   </div>
 </tui-island>

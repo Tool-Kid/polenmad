@@ -4,13 +4,17 @@ import {
   ChangeDetectionStrategy,
   Input,
 } from '@angular/core';
-import { MetricEntry } from '@polenmad/data-access';
+import { MetricEntry, PollenLevelType } from '@polenmad/data-access';
 import { PollenCategoriesConfigMap } from '@polenmad/data-access';
 
 interface MetricConfig {
   icon: string;
   name: string;
-  value: string;
+  value: {
+    count: number;
+    units: string;
+    level: PollenLevelType;
+  };
 }
 
 @Component({
@@ -42,7 +46,11 @@ export class MetricCardComponent implements OnInit {
     this.metric = {
       icon,
       name,
-      value: `${this.entry.value.polllenGrains.count}${this.entry.value.polllenGrains.units}`,
+      value: {
+        count: this.entry.value.polllenGrains.count,
+        units: this.entry.value.polllenGrains.units,
+        level: this.entry.value.polllenGrains.level,
+      },
     };
   }
 }
