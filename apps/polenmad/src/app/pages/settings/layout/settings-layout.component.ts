@@ -13,7 +13,7 @@ import {
   PollenCategoriesConfigMap,
   PollenCategoryType,
 } from '@polenmad/data-access';
-import { TogglePollenType } from '../state/settings.actions';
+import { SetCatcherRegion, TogglePollenType } from '../state/settings.actions';
 import { SettingsState } from '../state/settings.state';
 
 @Component({
@@ -55,9 +55,10 @@ export class SettingsLayoutComponent implements OnInit {
     const pollenTypesSettings = this.store.selectSnapshot(
       SettingsState.pollenTypes
     );
+    const regionSettings = this.store.selectSnapshot(SettingsState.region);
     this.settingsForm = this.fb.group({
       pollenTypes: this.fb.array([]),
-      region: ['ciuu', Validators.required],
+      region: [regionSettings || 'ciuu', Validators.required],
     });
     PollenCategoriesConfigMap.forEach((config) => {
       this.pollenTypes.push(
@@ -78,5 +79,7 @@ export class SettingsLayoutComponent implements OnInit {
     this.store.dispatch(new TogglePollenType(type));
   }
 
-  onCatcherRegionChanges() {}
+  onCatcherRegionChanges() {
+    this.store.dispatch(new SetCatcherRegion(this.region.value));
+  }
 }

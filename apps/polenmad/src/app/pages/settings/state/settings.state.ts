@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { updateItem, patch, append } from '@ngxs/store/operators';
-import { TogglePollenType } from './settings.actions';
+import { SetCatcherRegion, TogglePollenType } from './settings.actions';
 import { SETTINGS_STATE__DEFAULTS } from './settings.defaults';
 import { PollenTypeSettings, SettingsStateModel } from './settings.model';
 
@@ -14,6 +14,11 @@ export class SettingsState {
   @Selector()
   static pollenTypes(state: SettingsStateModel) {
     return state.pollenTypes;
+  }
+
+  @Selector()
+  static region(state: SettingsStateModel) {
+    return state.region;
   }
 
   @Action(TogglePollenType)
@@ -42,5 +47,14 @@ export class SettingsState {
         })
       );
     }
+  }
+
+  @Action(SetCatcherRegion)
+  setRegion(ctx: StateContext<SettingsStateModel>, action: SetCatcherRegion) {
+    ctx.setState(
+      patch({
+        region: action.region,
+      })
+    );
   }
 }

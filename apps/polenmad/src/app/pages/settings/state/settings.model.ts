@@ -1,4 +1,7 @@
-import { PollenCategoryType } from '@polenmad/data-access';
+import {
+  PollenCatcherRegionType,
+  PollenCategoryType,
+} from '@polenmad/data-access';
 
 export interface PollenTypeSettings {
   type: PollenCategoryType;
@@ -7,4 +10,5 @@ export interface PollenTypeSettings {
 
 export interface SettingsStateModel {
   pollenTypes: PollenTypeSettings[];
+  region: PollenCatcherRegionType;
 }

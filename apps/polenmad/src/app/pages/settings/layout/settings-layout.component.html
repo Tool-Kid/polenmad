@@ -33,6 +33,7 @@
               *ngFor="let region of catcherRegionOptions"
               tuiOption
               [value]="region.type"
+              (click)="onCatcherRegionChanges()"
             >
               {{ t('pollen.' + region.name) }}
             </button>
