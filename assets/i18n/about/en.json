@@ -1,0 +1,5 @@
+{
+  "WHY_THIS_APP__SECTION": "<h1>🤔 Why this App?</h1><p class='text-justify'>Due to the ❌ <i>'Technical Problems'</i> alleged by the Community of Madrid, the alert service of the <i> PALINOCAM Network </i> is out of service.<<p class='text-justify'>How tedious it is to go to the web 🤯, download the PDFs of the reports and pray that the data is more or less updated, made me decide to develop this App 💪🚀</p>",
+  "HOW_IT_WORKS__SECTION": "<h1>ℹ️ How does it work?</h1><p class='text-justify'>This Web application offers the information reported by pollen collectors in a ✨ simple and transparent way.</p><p class=' text-justify'>In the ins and outs of the service, it downloads, processes and formats the data of the PDFs on the web and exposes them to a public API that is consumed by this web site 🥰</p>",
+  "GREETINGS__SECTION": "<h1>🎉 Acknowledgments</h1><ul class='list-disc list-inside'><li>Author Icons<b class='underline decoration-purple-500 text-base font-bold'><a href ='https://www.flaticon.es/autores/freepik'> Freepik </a></b>from <i>Flaticon</i></li></ul> website"
+}
