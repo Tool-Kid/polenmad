@@ -17,5 +17,16 @@
   "POLLEN_LEVEL__HIGH": "High",
   "POLLEN_LEVEL__MEDIUM": "Medium",
   "POLLEN_LEVEL__LOW": "Low",
-  "POLLEN_LEVEL__UNESTIMATED": "Unestimated"
+  "POLLEN_LEVEL__UNESTIMATED": "Unestimated",
+  "AH__NAME": "Alcalá de Henares",
+  "ALCO__NAME": "Alcobendas",
+  "ARAN__NAME": "Aranjuez",
+  "ARGA__NAME": "Arganda",
+  "CIUU__NAME": "Ciudad Universitaria",
+  "COSL__NAME": "Coslada",
+  "COVI__NAME": "Collado Villalba",
+  "GETA__NAME": "Getafe",
+  "LEGA__NAME": "Legazpi",
+  "ROZA__NAME": "Las Rozas",
+  "SALA__NAME": "Barrio Salamanca"
 }

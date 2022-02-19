@@ -1,13 +1,13 @@
 import { PollenCatcherRegionConfig } from './config';
 import { PollenCatcherRegionType } from '../catcher';
 
-export const PollenCategoriesConfigMap = new Map<
+export const CatcherRegionConfigMap = new Map<
   PollenCatcherRegionType,
   PollenCatcherRegionConfig
 >([
   ['ah', { type: 'ah', name: 'AH__NAME' }],
   ['alco', { type: 'alco', name: 'ALCO__NAME' }],
-  ['aran', { type: 'aran', name: 'AH__NAME' }],
+  ['aran', { type: 'aran', name: 'ARAN__NAME' }],
   ['arga', { type: 'ah', name: 'ARGA__NAME' }],
   ['ciuu', { type: 'ciuu', name: 'CIUU__NAME' }],
   ['cosl', { type: 'cosl', name: 'COSL__NAME' }],

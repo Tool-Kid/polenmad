@@ -1,6 +1,6 @@
-<ng-container>
+<ng-container *transloco="let t">
   <form [formGroup]="settingsForm">
-    <div class="container mx-auto px-4" *transloco="let t">
+    <div class="container px-4 pt-5">
       <h1>{{ t('settings.POLLEN_TYPES__TITLE') }}</h1>
       <div formArrayName="pollenTypes" class="grid grid-cols-2">
         <ng-container
@@ -19,6 +19,26 @@
           </div>
         </ng-container>
       </div>
+    </div>
+    <div class="container mx-auto px-4 pt-5">
+      <h1>{{ t('settings.CATCHER_REGION__TITLE') }}</h1>
+      <tui-select
+        formControlName="region"
+        [valueContent]="t('pollen.' + regionLabel)"
+      >
+        Región
+        <ng-template tuiDataList>
+          <tui-data-list>
+            <button
+              *ngFor="let region of catcherRegionOptions"
+              tuiOption
+              [value]="region.type"
+            >
+              {{ t('pollen.' + region.name) }}
+            </button>
+          </tui-data-list>
+        </ng-template>
+      </tui-select>
     </div>
   </form>
 </ng-container>
