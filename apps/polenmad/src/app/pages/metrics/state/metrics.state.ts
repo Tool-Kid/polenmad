@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
-import { MetricsService } from '@polenmad/data-access';
+import { MetricsService, PollenLevelType } from '@polenmad/data-access';
 import { tap } from 'rxjs';
 import { SettingsStateModel } from '../../settings/state/settings.model';
 import { SettingsState } from '../../settings/state/settings.state';
@@ -21,12 +21,22 @@ export class MetricsState {
 
   @Selector([SettingsState])
   static alergies(state: MetricsStateModel, settings: SettingsStateModel) {
+    const sortLevelCriteria = new Map<PollenLevelType, number>([
+      ['very_high', 0],
+      ['high', 1],
+      ['medium', 2],
+      ['low', 3],
+    ]);
     const pollenTypes = settings.pollenTypes
       .filter((pollenType) => pollenType.active)
       .map((pollenType) => pollenType.type);
-    return state.metrics.entries.filter((entry) =>
-      pollenTypes.includes(entry.value.type)
-    );
+    return state.metrics.entries
+      .filter((entry) => pollenTypes.includes(entry.value.type))
+      .sort((a, b) => {
+        const aLevel = sortLevelCriteria.get(a.value.polllenGrains.level) ?? 3;
+        const bLevel = sortLevelCriteria.get(b.value.polllenGrains.level) ?? 3;
+        return aLevel - bLevel;
+      });
   }
 
   constructor(private readonly metricsService: MetricsService) {}

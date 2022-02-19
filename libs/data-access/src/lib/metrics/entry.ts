@@ -1,4 +1,5 @@
 import { PollenCategoryType } from '../pollen';
+import { PollenLevelType } from './pollen-level';
 
 export interface MetricEntry {
   lastUpdated: number;
@@ -6,6 +7,7 @@ export interface MetricEntry {
     type: PollenCategoryType;
     polllenGrains: {
       count: number;
+      level: PollenLevelType;
       units: string;
     };
   };
