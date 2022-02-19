@@ -18,6 +18,7 @@ export class InMemoryMetricsService implements MetricsService {
             type: 'todos',
             polllenGrains: {
               count: 126,
+              level: 'low',
               units: '',
             },
           },
@@ -28,6 +29,7 @@ export class InMemoryMetricsService implements MetricsService {
             type: 'alnu',
             polllenGrains: {
               count: 126,
+              level: 'high',
               units: '',
             },
           },
@@ -38,6 +40,7 @@ export class InMemoryMetricsService implements MetricsService {
             type: 'acer',
             polllenGrains: {
               count: 126,
+              level: 'medium',
               units: '',
             },
           },
@@ -48,6 +51,7 @@ export class InMemoryMetricsService implements MetricsService {
             type: 'betu',
             polllenGrains: {
               count: 126,
+              level: 'low',
               units: '',
             },
           },
@@ -58,6 +62,7 @@ export class InMemoryMetricsService implements MetricsService {
             type: 'cory',
             polllenGrains: {
               count: 126,
+              level: 'low',
               units: '',
             },
           },
@@ -68,6 +73,7 @@ export class InMemoryMetricsService implements MetricsService {
             type: 'cupr',
             polllenGrains: {
               count: 126,
+              level: 'medium',
               units: '',
             },
           },
@@ -78,6 +84,7 @@ export class InMemoryMetricsService implements MetricsService {
             type: 'frax',
             polllenGrains: {
               count: 126,
+              level: 'very_high',
               units: '',
             },
           },
@@ -88,6 +95,7 @@ export class InMemoryMetricsService implements MetricsService {
             type: 'plat',
             polllenGrains: {
               count: 126,
+              level: 'very_high',
               units: '',
             },
           },
@@ -98,6 +106,7 @@ export class InMemoryMetricsService implements MetricsService {
             type: 'poac',
             polllenGrains: {
               count: 126,
+              level: 'medium',
               units: '',
             },
           },
@@ -108,6 +117,7 @@ export class InMemoryMetricsService implements MetricsService {
             type: 'popu',
             polllenGrains: {
               count: 126,
+              level: 'high',
               units: '',
             },
           },
@@ -118,6 +128,7 @@ export class InMemoryMetricsService implements MetricsService {
             type: 'sali',
             polllenGrains: {
               count: 126,
+              level: 'medium',
               units: '',
             },
           },
@@ -128,6 +139,7 @@ export class InMemoryMetricsService implements MetricsService {
             type: 'ulmu',
             polllenGrains: {
               count: 126,
+              level: 'high',
               units: '',
             },
           },
