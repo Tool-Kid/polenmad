@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   TuiDialogModule,
+  TuiNotificationModule,
   TuiNotificationsModule,
   TuiRootModule,
 } from '@taiga-ui/core';
@@ -24,7 +25,12 @@ import { SettingsState } from './pages/settings/state/settings.state';
 import { FooterModule } from './components/footer/footer.module';
 
 const OWN_MODULES = [HeaderModule, TabsModule, FooterModule];
-const TAIGA_MODULES = [TuiRootModule, TuiNotificationsModule, TuiDialogModule];
+const TAIGA_MODULES = [
+  TuiRootModule,
+  TuiNotificationsModule,
+  TuiDialogModule,
+  TuiNotificationModule,
+];
 
 const NGXS_MODULES = [
   NgxsModule.forRoot([SettingsState], {
@@ -42,7 +48,7 @@ const NGXS_MODULES = [
     HttpClientModule,
     ReactiveFormsModule,
     DataAccessModule.forRoot({
-      strategy: environment.production ? 'http' : 'mock',
+      strategy: environment.production ? 'mock' : 'mock',
     }),
     ...NGXS_MODULES,
     ...TAIGA_MODULES,
