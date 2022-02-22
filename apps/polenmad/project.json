@@ -81,7 +81,7 @@
     "deploy": {
       "executor": "angular-cli-ghpages:deploy",
       "options": {
-        "baseHref": "https://tool-kid.github.io/polenmad/",
+        "baseHref": "https://www.polenmad.com",
         "cname": "www.polenmad.com",
         "name": "Raúl López",
         "email": "rjlopezmad@gmail.com"
