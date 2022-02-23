@@ -2,6 +2,9 @@ import { Injectable, Logger } from '@nestjs/common';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { differenceInSeconds } from 'date-fns';
 import { existsSync, mkdirSync, rmSync, writeFileSync } from 'fs';
+import { tmpdir } from 'os';
+import { join } from 'path';
+
 import { pollenCollectedEvent } from '../shared';
 import { PollenCategoryIndexRegistry, PollenCollection } from './data';
 import { PollenCollectorService } from './pollen-collector.service';
@@ -10,9 +13,9 @@ import { PollenDataProcessorService } from './pollen-data-processor.service';
 @Injectable()
 export class CollectPollenUseCase {
   private readonly logger = new Logger(CollectPollenUseCase.name);
-  private readonly tmpPath = './tmp';
-  private readonly tmpReportsPath = `${this.tmpPath}/reports`;
-  private readonly tmpCollectorPath = `${this.tmpPath}/collector`;
+  private readonly tmpPath = tmpdir();
+  private readonly tmpReportsPath = join(this.tmpPath, 'reports');
+  private readonly tmpCollectorPath = join(this.tmpPath, 'collector');
 
   constructor(
     private readonly collector: PollenCollectorService,
@@ -44,7 +47,10 @@ export class CollectPollenUseCase {
       )} seconds with new ${pollenCollection.entries.length} entries found`
     );
 
-    const storeFilePath = `${this.tmpReportsPath}/pollen-report-${startAt}.json`;
+    const storeFilePath = join(
+      this.tmpReportsPath,
+      `pollen-report-${startAt}.json`
+    );
     if (!existsSync(this.tmpReportsPath)) {
       mkdirSync(this.tmpReportsPath, { recursive: true });
     }
@@ -56,5 +62,8 @@ export class CollectPollenUseCase {
 
     const { type, data } = pollenCollectedEvent(pollenCollection);
     this.emitter.emit(type, data);
+    return {
+      status: 'completed',
+    };
   }
 }

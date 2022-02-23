@@ -9,6 +9,6 @@ export class OnPollenCollectorCompleted {
 
   @OnEvent(POLLEN_PROCESSOR_COMPLETED__EVENT)
   handle(data: any) {
-    this.metricsRepository.updateMetrics(data);
+    // this.metricsRepository.updateMetrics(data);
   }
 }

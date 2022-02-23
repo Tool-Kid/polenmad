@@ -1,0 +1,1 @@
+camelot-py[base]===0.10.1
