@@ -3,35 +3,38 @@ import { PythonShell } from 'python-shell';
 
 import { PollenCategoryType } from './data';
 import { getPythonFilePath } from '../utils';
-import { InjectAwsService } from 'nest-aws-sdk';
-import { Lambda } from 'aws-sdk';
 
 @Injectable()
 export class PollenCollectorService {
   private readonly logger = new Logger(PollenCollectorService.name);
 
-  constructor(@InjectAwsService(Lambda) private readonly lambda: Lambda) {}
+  constructor() {}
 
   async getPollenDataForPollenCategory(
     category: PollenCategoryType
   ): Promise<any[]> {
-    const data = await new Promise((resolve, reject) => {
-      this.lambda.invoke(
-        {
-          FunctionName: 'pdf_processor',
-          Payload: {
-            category,
-          },
-        },
-        (err, data) => {
+    return new Promise((resolve, reject) => {
+      console.log(
+        getPythonFilePath(
+          `${__dirname}/pollen-collector/pollen_pdf_processor.py`
+        )
+      );
+      PythonShell.run(
+        getPythonFilePath(
+          `${__dirname}/pollen-collector/pollen_pdf_processor.py`
+        ),
+        { pythonPath: 'python3', args: [category] },
+        (err, result) => {
           if (err) {
             reject(err);
           }
-          console.log(err, data);
-          resolve(data.Payload);
+          this.logger.log(
+            `✅ Data extraction for ${category} completed succesfully`
+          );
+          console.log('data: ', result);
+          resolve(JSON.parse(result[0]));
         }
       );
     });
-    return data as any[];
   }
 }
