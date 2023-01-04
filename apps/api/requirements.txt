@@ -1,2 +1,0 @@
-camelot-py[base]===0.10.1
-requests===2.27.1
