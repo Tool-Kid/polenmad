@@ -1,4 +1,3 @@
-import { PollenCategoryType } from '../../pollen-collector/data';
 import { IsArray, ValidateNested, IsString, IsNumber } from 'class-validator';
 import { Type } from 'class-transformer';
 
@@ -11,7 +10,7 @@ export class PollenGrain {
 
 export class MetricEntryValue {
   @Type()
-  type: PollenCategoryType;
+  type: any;
   @ValidateNested()
   polllenGrains: PollenGrain;
 }

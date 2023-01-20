@@ -3,8 +3,10 @@
   "projects": {
     "api": "apps/api",
     "data-access": "libs/data-access",
+    "metrics": "libs/metrics",
     "polenmad": "apps/polenmad",
-    "polenmad-e2e": "apps/polenmad-e2e"
+    "polenmad-e2e": "apps/polenmad-e2e",
+    "pollen": "libs/pollen"
   },
   "$schema": "./node_modules/nx/schemas/workspace-schema.json"
 }

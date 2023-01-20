@@ -15,7 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@polenmad/data-access": ["libs/data-access/src/index.ts"]
+      "@polenmad/data-access": ["libs/data-access/src/index.ts"],
+      "@polenmad/metrics": ["libs/metrics/src/index.ts"],
+      "@polenmad/pollen": ["libs/pollen/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

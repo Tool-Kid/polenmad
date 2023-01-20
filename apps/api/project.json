@@ -13,12 +13,7 @@
         "tsConfig": "apps/api/tsconfig.app.json",
         "generatePackageJson": true,
         "assets": [
-          "apps/api/src/assets",
-          {
-            "glob": "**/*.py",
-            "input": "apps/api/src/app/",
-            "output": "./"
-          }
+          "apps/api/src/assets"
         ],
         "target": "node",
         "compiler": "tsc"

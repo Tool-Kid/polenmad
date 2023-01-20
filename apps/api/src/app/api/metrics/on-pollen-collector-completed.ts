@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { OnEvent } from '@nestjs/event-emitter';
-import { POLLEN_PROCESSOR_COMPLETED__EVENT } from '../shared';
+import { POLLEN_PROCESSOR_COMPLETED__EVENT } from '../../shared';
 import { MetricsRepository } from './metrics.repository';
 
 @Injectable()
