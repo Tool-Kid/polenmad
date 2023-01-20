@@ -1,4 +1,4 @@
 export * from './mappers';
 export * from './persistence';
 export * from './pollen-catcher.service';
-export * from './pollen-collector.service';
+export * from './pollen.service';
