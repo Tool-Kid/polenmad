@@ -2,10 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { Cron } from '@nestjs/schedule';
 import { lastValueFrom } from 'rxjs';
 import { PollenCatcherRepository } from '../../domain';
-import { PollenCatcherService } from '../pollen-catcher.service';
+import { PollenCatcherService } from '../../infra/pollen-catcher.service';
 
 @Injectable()
-export class PollenCatchersUpdaterService {
+export class PollenCatchersUpdater {
   constructor(
     private readonly pollenCatcherService: PollenCatcherService,
     private readonly pollenCatcherRepository: PollenCatcherRepository
