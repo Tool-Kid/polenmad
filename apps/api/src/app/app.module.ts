@@ -6,13 +6,13 @@ import {
   PollenCatcherJSONDBRepository,
   PollenCatcherRepository,
   PollenCatcherService,
-  PollencatchersUpdaterService,
+  PollenCatchersUpdaterService,
 } from '@polenmad/pollen';
 
 import { MetricsModule } from './api/metrics/metrics.module';
 import { PollenCatchersModule } from './api/pollen-catchers/pollen-catchers.module';
 
-const CRON_JOBS = [PollencatchersUpdaterService];
+const CRON_JOBS = [PollenCatchersUpdaterService];
 
 @Module({
   imports: [

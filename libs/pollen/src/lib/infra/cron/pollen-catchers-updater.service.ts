@@ -5,7 +5,7 @@ import { PollenCatcherRepository } from '../../domain';
 import { PollenCatcherService } from '../pollen-catcher.service';
 
 @Injectable()
-export class PollencatchersUpdaterService {
+export class PollenCatchersUpdaterService {
   constructor(
     private readonly pollenCatcherService: PollenCatcherService,
     private readonly pollenCatcherRepository: PollenCatcherRepository

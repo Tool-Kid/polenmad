@@ -1,9 +1,9 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { lastValueFrom, map } from 'rxjs';
-import { PollenEntry } from '../../domain';
-import { PollenEntryDto } from '../../infra';
-import { mapPollenDataToDomain } from '../../infra/mappers/pollen.mapper';
+import { PollenEntry } from '../domain/pollen';
+import { mapPollenDataToDomain } from './mappers';
+import { PollenEntryDto } from './persistence';
 
 @Injectable()
 export class PollenCollectorService {

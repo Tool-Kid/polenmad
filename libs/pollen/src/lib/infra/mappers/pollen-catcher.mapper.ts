@@ -13,7 +13,7 @@ export function mapPollenCatcherToDomain(
     description: pollenCatcher.descripcion,
     height: pollenCatcher.altura_del_captador,
     ownership: pollenCatcher.tipo_titularidad as PollenCatcherOwnsership,
-    reportedPollenTypes: pollenCatcher.tipos_de_polen_registrados.split(','),
+    reportedPollenTypes: pollenCatcher.tipos_de_polen_registrados.split(', '),
     geo: {
       building: pollenCatcher.edificio,
       street: pollenCatcher.direccion_ubicacion,
