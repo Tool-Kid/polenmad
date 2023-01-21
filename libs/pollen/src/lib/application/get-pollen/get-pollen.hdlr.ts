@@ -12,7 +12,6 @@ export class GetPollenQryHandler
 
   async execute(query: GetPollenQry): Promise<PollenEntry[]> {
     const pollen = await lastValueFrom(this.pollenRepository.getPollen());
-    console.log(pollen);
     return pollen;
   }
 }

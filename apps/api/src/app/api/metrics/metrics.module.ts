@@ -1,8 +1,10 @@
 import { Module } from '@nestjs/common';
+import { PollenCollectedEventHandler } from '@polenmad/metrics';
+
 import { GetMetricsController } from './get/get-metrics.controller';
 import { MetricsRepository } from './metrics.repository';
 
-const EVENT_HANDLERS = [];
+const EVENT_HANDLERS = [PollenCollectedEventHandler];
 
 @Module({
   imports: [],
