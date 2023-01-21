@@ -1,9 +1,9 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
-import { lastValueFrom, map, Observable } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
 import { PollenEntry } from '../domain/pollen';
 import { mapPollenDataToDomain } from './mappers';
-import { PollenEntryDto } from './persistence';
+import { PollenDto } from './persistence';
 
 @Injectable()
 export class PollenService {
@@ -13,12 +13,11 @@ export class PollenService {
   constructor(private readonly http: HttpService) {}
 
   retrievePollenData(): Observable<PollenEntry[]> {
-    return this.http
-      .get<PollenEntryDto[]>(this.POLLEN_DATA_URL)
-      .pipe(
-        map((response) =>
-          response.data.map((entry) => mapPollenDataToDomain(entry))
-        )
-      );
+    return this.http.get<PollenDto>(this.POLLEN_DATA_URL).pipe(
+      tap((data) => console.log(data)),
+      map((response) =>
+        response.data.data.map((entry) => mapPollenDataToDomain(entry))
+      )
+    );
   }
 }

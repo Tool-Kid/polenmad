@@ -1,4 +1,4 @@
-export interface PollenCollectDto {
+export interface PollenDto {
   data: PollenEntryDto[];
 }
 

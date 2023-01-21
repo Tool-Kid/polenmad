@@ -5,21 +5,25 @@ import {
   GetPollenCatcherQryHandler,
   PollenCatcherJSONDBRepository,
   PollenCatcherRepository,
+  PollenCatcherService,
+  PollenCatchersUpdater,
 } from '@polenmad/pollen';
 import { PollenCatcherController } from './get/pollen-catchers.controller';
 
 const QUERY_HANDLERS = [GetPollenCatcherQryHandler];
+const CRON_JOBS = [PollenCatchersUpdater];
 
 @Module({
   controllers: [PollenCatcherController],
   imports: [CqrsModule, HttpModule],
   providers: [
-    GetPollenCatcherQryHandler,
     {
       provide: PollenCatcherRepository,
       useClass: PollenCatcherJSONDBRepository,
     },
+    PollenCatcherService,
     ...QUERY_HANDLERS,
+    ...CRON_JOBS,
   ],
 })
 export class PollenCatchersModule {}

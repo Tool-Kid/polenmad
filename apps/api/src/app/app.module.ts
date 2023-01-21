@@ -2,34 +2,20 @@ import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { ScheduleModule } from '@nestjs/schedule';
-import {
-  PollenCatcherJSONDBRepository,
-  PollenCatcherRepository,
-  PollenCatcherService,
-  PollenCatchersUpdater,
-} from '@polenmad/pollen';
 
 import { MetricsModule } from './api/metrics/metrics.module';
 import { PollenCatchersModule } from './api/pollen-catchers/pollen-catchers.module';
+import { PollenModule } from './api/pollen/pollen.module';
 
-const CRON_JOBS = [PollenCatchersUpdater];
+const FEATURE_MODULES = [MetricsModule, PollenCatchersModule, PollenModule];
 
 @Module({
   imports: [
-    MetricsModule,
-    PollenCatchersModule,
     HttpModule,
     EventEmitterModule.forRoot(),
     ScheduleModule.forRoot(),
+    ...FEATURE_MODULES,
   ],
-  controllers: [],
-  providers: [
-    ...CRON_JOBS,
-    {
-      provide: PollenCatcherRepository,
-      useClass: PollenCatcherJSONDBRepository,
-    },
-    PollenCatcherService,
-  ],
+  providers: [],
 })
 export class AppModule {}

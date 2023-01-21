@@ -1,17 +1,18 @@
-import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
+import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { lastValueFrom } from 'rxjs';
 import { PollenRepository } from '../../domain';
 import { PollenEntry } from '../../domain/pollen';
-import { GetPollenCmd } from './get-pollen.cmd';
+import { GetPollenQry } from './get-pollen.qry';
 
-@CommandHandler(GetPollenCmd)
-export class GetPollenCmdHandler
-  implements ICommandHandler<GetPollenCmd, PollenEntry[]>
+@QueryHandler(GetPollenQry)
+export class GetPollenQryHandler
+  implements IQueryHandler<GetPollenQry, PollenEntry[]>
 {
   constructor(private readonly pollenRepository: PollenRepository) {}
 
-  async execute(command: GetPollenCmd): Promise<PollenEntry[]> {
+  async execute(query: GetPollenQry): Promise<PollenEntry[]> {
     const pollen = await lastValueFrom(this.pollenRepository.getPollen());
+    console.log(pollen);
     return pollen;
   }
 }

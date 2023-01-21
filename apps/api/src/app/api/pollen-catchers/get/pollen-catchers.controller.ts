@@ -7,7 +7,7 @@ export class PollenCatcherController {
   constructor(private readonly queryBus: QueryBus) {}
 
   @Get()
-  async getPollenCatchers() {
+  getPollenCatchers() {
     const data = this.queryBus.execute(new GetPollenCatcherQry());
     return data;
   }
