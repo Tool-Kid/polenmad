@@ -12,7 +12,7 @@ export class PollenJSONDBRepository implements PollenRepository {
     return from(this.db.getData(this.DB_KEY));
   }
 
-  updatePollen(pollenEntries: PollenEntry[]): void {
-    this.db.push(this.DB_KEY, pollenEntries);
+  updatePollen(pollenEntries: PollenEntry[]): Observable<void> {
+    return from(this.db.push(this.DB_KEY, pollenEntries));
   }
 }
