@@ -1,7 +1,9 @@
 import { Controller, Get } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { MetricsRepository } from '../metrics.repository';
 import { PollenMetrics } from './dto';
 
+@ApiTags('metrics')
 @Controller('metrics')
 export class GetMetricsController {
   constructor(private readonly repository: MetricsRepository) {}

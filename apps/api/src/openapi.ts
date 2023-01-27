@@ -6,7 +6,6 @@ export function setupOpenApi(app: INestApplication) {
     .setTitle('PolenMad API')
     .setDescription('PolenMad API description')
     .setVersion('1.0')
-    .addTag('polenmad')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
