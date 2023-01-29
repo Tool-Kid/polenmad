@@ -4,16 +4,16 @@ export interface PollenCatcher {
   description: string;
   ownership: PollenCatcherOwnsership;
   height: number;
-  geo: {
-    street: string;
-    ZIP: number;
-    zbs: {
-      code: number;
-      name: string;
-    };
-    building: string;
-  };
+  geo: PollenCatcherGeo;
   reportedPollenTypes: string[];
 }
+
+export interface PollenCatcherGeo {
+  street: string;
+  ZIP: number;
+  latitude: number;
+  longitude: number;
+  building: string;
+};
 
 export type PollenCatcherOwnsership = 'public' | 'private';

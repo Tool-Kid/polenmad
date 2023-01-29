@@ -17,10 +17,8 @@ export function mapPollenCatcherToDomain(
     geo: {
       building: pollenCatcher.edificio,
       street: pollenCatcher.direccion_ubicacion,
-      zbs: {
-        code: pollenCatcher.zbs_geocodigo,
-        name: pollenCatcher.zbs_nombre,
-      },
+      latitude: pollenCatcher.lat_epsg4258,
+      longitude: pollenCatcher.long_epsg4258,
       ZIP: pollenCatcher.direccion_codigo_postal,
     },
   };

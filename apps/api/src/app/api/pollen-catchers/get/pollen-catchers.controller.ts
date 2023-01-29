@@ -21,6 +21,10 @@ export class PollenCatcherController {
             id: pollenCatcher.id,
             description: pollenCatcher.description,
             reportedPollenTypes: pollenCatcher.reportedPollenTypes,
+            geo: {
+              building: pollenCatcher.geo.building,
+              street: pollenCatcher.geo.street,
+            },
           })
       ),
     });

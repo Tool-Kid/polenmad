@@ -1,5 +1,17 @@
 import { ApiProperty } from '@nestjs/swagger';
 
+export class PollenCatcherGeoDto {
+  @ApiProperty()
+  street: string;
+
+  @ApiProperty()
+  building: string;
+
+  constructor(data: GetPollenCatchersDto) {
+    Object.assign(this, data);
+  }
+}
+
 export class PollenCatcherDto {
   @ApiProperty()
   id: string;
@@ -9,6 +21,9 @@ export class PollenCatcherDto {
 
   @ApiProperty()
   reportedPollenTypes: string[];
+
+  @ApiProperty({ type: PollenCatcherGeoDto })
+  geo: PollenCatcherGeoDto;
 
   constructor(data: PollenCatcherDto) {
     Object.assign(this, data);

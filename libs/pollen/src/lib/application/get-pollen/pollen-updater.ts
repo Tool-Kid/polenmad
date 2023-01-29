@@ -15,7 +15,6 @@ export class PollenUpdater {
 
   @Cron('0 0 * * * *')
   async handleCron() {
-    console.log('ho');
     const pollenEntries = await lastValueFrom(
       this.pollenService.retrievePollenData()
     );

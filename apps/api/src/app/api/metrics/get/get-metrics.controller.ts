@@ -1,17 +1,18 @@
 import { Controller, Get } from '@nestjs/common';
+import { QueryBus } from '@nestjs/cqrs';
 import { ApiTags } from '@nestjs/swagger';
-import { MetricsRepository } from '../metrics.repository';
-import { PollenMetrics } from './dto';
+import { GetMetricsDto } from './dto';
 
 @ApiTags('metrics')
 @Controller('metrics')
 export class GetMetricsController {
-  constructor(private readonly repository: MetricsRepository) {}
+  constructor(private readonly queryBus: QueryBus) {}
 
   @Get()
   getMetrics() {
     const lastUpdated = new Date().toISOString();
-    return new PollenMetrics({
+
+    return new GetMetricsDto({
       lastUpdated,
       entries: [
         {

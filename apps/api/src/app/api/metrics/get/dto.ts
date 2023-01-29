@@ -1,35 +1,34 @@
-import { IsArray, ValidateNested, IsString, IsNumber } from 'class-validator';
-import { Type } from 'class-transformer';
+import { ApiProperty } from '@nestjs/swagger';
 
-export class PollenGrain {
-  @IsNumber()
+export class PollenGrainDto {
+  @ApiProperty()
   count: number;
-  @IsString()
+  @ApiProperty()
   units: string;
 }
 
-export class MetricEntryValue {
-  @Type()
+export class MetricEntryValueDto {
+  @ApiProperty()
   type: any;
-  @ValidateNested()
-  polllenGrains: PollenGrain;
+  @ApiProperty({ type: PollenGrainDto })
+  polllenGrains: PollenGrainDto;
 }
 
-export class MetricEntry {
-  @IsString()
+export class MetricEntryDto {
+  @ApiProperty()
   lastUpdated: string;
-  @ValidateNested()
-  @Type()
-  value: MetricEntryValue;
+
+  @ApiProperty({ type: MetricEntryValueDto })
+  value: MetricEntryValueDto;
 }
 
-export class PollenMetrics {
-  @IsString()
+export class GetMetricsDto {
+  @ApiProperty()
   lastUpdated: string;
-  @IsArray()
-  entries: MetricEntry[];
+  @ApiProperty({ type: MetricEntryDto, isArray: true })
+  entries: MetricEntryDto[];
 
-  constructor(partial: Partial<PollenMetrics>) {
+  constructor(partial: Partial<GetMetricsDto>) {
     Object.assign(this, partial);
   }
 }
