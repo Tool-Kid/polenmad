@@ -3,12 +3,13 @@ import {
   PollenCatcher,
   PollenCatcherOwnsership,
 } from '../../domain/pollen-catcher';
+import { mapPollenCatcherIdToDomain } from './pollen-catcher-id.mapper';
 
 export function mapPollenCatcherToDomain(
   pollenCatcher: PollenCatcherDto
 ): PollenCatcher {
   return {
-    id: pollenCatcher.codigo,
+    id: mapPollenCatcherIdToDomain(pollenCatcher.codigo),
     name: pollenCatcher.nombre,
     description: pollenCatcher.descripcion,
     height: pollenCatcher.altura_del_captador,
