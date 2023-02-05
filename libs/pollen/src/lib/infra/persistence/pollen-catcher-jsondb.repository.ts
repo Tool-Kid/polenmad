@@ -4,7 +4,7 @@ import { PollenCatcher, PollenCatcherRepository } from '../../domain';
 
 export class PollenCatcherJSONDBRepository implements PollenCatcherRepository {
   private readonly db = new JsonDB(
-    new Config('pollenmad__pollen-catchers', true, false, '/')
+    new Config('pollenmad@pollen__pollen-catchers', true, false, '/')
   );
 
   private readonly DB_KEY = 'POLLEN_CATCHERS';

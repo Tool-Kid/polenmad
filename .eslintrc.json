@@ -2,6 +2,32 @@
   "root": true,
   "ignorePatterns": ["**/*"],
   "plugins": ["@nrwl/nx"],
+  "rules": {
+    "@nrwl/nx/enforce-module-boundaries": [
+      "error",
+      {
+        "allow": [],
+        "depConstraints": [
+          {
+            "sourceTag": "context:pollen",
+            "onlyDependOnLibsWithTags": ["context:pollen"]
+          },
+          {
+            "sourceTag": "context:metrics",
+            "onlyDependOnLibsWithTags": ["context:metrics"]
+          },
+          {
+            "sourceTag": "app:pollenmad",
+            "onlyDependOnLibsWithTags": ["app:pollenmad"]
+          },
+          {
+            "sourceTag": "api:pollenmad",
+            "onlyDependOnLibsWithTags": ["context:pollen", "context:metrics"]
+          }
+        ]
+      }
+    ]
+  },
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],

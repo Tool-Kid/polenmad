@@ -4,7 +4,7 @@ import { PollenEntry, PollenRepository } from '../../domain';
 
 export class PollenJSONDBRepository implements PollenRepository {
   private readonly db = new JsonDB(
-    new Config('pollenmad__pollen', true, false, '/')
+    new Config('pollenmad@pollen__pollen', false, false, '/')
   );
   private readonly DB_KEY = 'POLLEN';
 
@@ -13,6 +13,14 @@ export class PollenJSONDBRepository implements PollenRepository {
   }
 
   updatePollen(pollenEntries: PollenEntry[]): Observable<void> {
-    return from(this.db.push(this.DB_KEY, pollenEntries));
+    for (const entry of pollenEntries) {
+      this.db.push(
+        `${this.DB_KEY}/${entry.catcher}__${
+          entry.pollenType
+        }__${entry.readDate.toISOString()}`,
+        entry
+      );
+    }
+    return from(this.db.save());
   }
 }
